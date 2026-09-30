@@ -2,6 +2,7 @@
 
 ## Live Demo:
 ## Features:
+## Screenshots:
 ## Technologies:
 ## Attributions:
 
