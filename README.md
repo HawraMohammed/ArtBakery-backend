@@ -6,7 +6,7 @@
 ## Technologies:
 ## Attributions:
 
-- Link for the frontend: []
+- Link for the frontend: [frontend link](https://github.com/HawraMohammed/ArtBakery-frontend)
 
 # Planning phase:
 
