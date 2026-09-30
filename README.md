@@ -1,12 +1,12 @@
 # Art Bakery Project
 
 ## Live Demo:
+- Link for the frontend: [frontend link](https://github.com/HawraMohammed/ArtBakery-frontend)
+
 ## Features:
 ## Screenshots:
 ## Technologies:
 ## Attributions:
-
-- Link for the frontend: [frontend link](https://github.com/HawraMohammed/ArtBakery-frontend)
 
 # Planning phase:
 
