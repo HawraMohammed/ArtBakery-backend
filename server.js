@@ -10,6 +10,7 @@ const app = express();
 const cors = require('cors');
 const logger = require('morgan');
 const isSignedIn = require('./middleware/isSignedIn');
+const path = require('path');
 
 // Routers
 const authRouter = require('./routes/authRouter');
@@ -17,6 +18,8 @@ const authRouter = require('./routes/authRouter');
 app.use(cors());
 app.use(express.json());
 app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 // ROUTES
 
