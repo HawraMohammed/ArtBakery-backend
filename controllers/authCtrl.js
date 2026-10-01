@@ -23,6 +23,7 @@ const signup = async (req, res) => {
     const payload = {
       username: user.username,
       _id: user._id,
+      role: user.role
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);
@@ -54,6 +55,7 @@ const login = async (req, res) => {
     const payload = {
       username: userInDatabase.username,
       _id: userInDatabase._id,
+      role: user.role
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);

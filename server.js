@@ -14,6 +14,8 @@ const path = require('path');
 
 // Routers
 const authRouter = require('./routes/authRouter');
+const requestRouter = require('./routes/requestRouter');
+
 
 app.use(cors());
 app.use(express.json());
@@ -28,6 +30,7 @@ app.use('/auth', authRouter);
 
 // PROTECTED
 app.use(isSignedIn);
+app.use('/requests', requestRouter);
 
 app.get('/protected', (req, res) => {
   try {
