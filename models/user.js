@@ -9,6 +9,15 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'cusromer'],
+    default: 'customer'
+  }
 });
 
 userSchema.set('toJSON', {
