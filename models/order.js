@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema({
         , required: true
     },
     requestedDate: { type: Date, required: true },
-    price: { type: Number, required: true },
+    price: { type: Number },
     paymentStatus: {
         type: String,
         enum: ['unpaid', 'paid'],

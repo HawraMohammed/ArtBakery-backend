@@ -59,7 +59,7 @@
     <td>Get current user's payload</td>
   </tr>
   <tr>
-    <td rowspan="5">Request</td>
+    <td rowspan="6">Request</td>
     <td>POST</td>
     <td>/requests</td>
     <td>Create a new request to order</td>
@@ -80,9 +80,14 @@
     <td>view the created request info</td>
   </tr>
    <tr>
+    <td>POST</td>
+    <td>/requests/:requestId/accept</td>
+    <td>admin accepts the request</td>
+  </tr>
+   <tr>
     <td>DELETE</td>
-    <td>/requests/:requestId?action=(accept,reject,withdraw)</td>
-    <td>accept/reject request (admin) withdraw the created request info(customer)</td>
+    <td>/requests/:requestId/withdraw</td>
+    <td>reject request (admin) withdraw the created request info(customer)</td>
   </tr>
   <tr>
     <td rowspan="4">Order</td>

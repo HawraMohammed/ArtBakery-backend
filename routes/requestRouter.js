@@ -1,13 +1,17 @@
 const express = require('express');
 const requestCtrl = require('../controllers/requestCtrl');
-const isAuthorizedRoReq = require('../middleware/isAuthorizedToReq');
+const isAuthorizedToReq = require('../middleware/isAuthorizedToReq');
+const isAvailableSlot = require('../middleware/isAvailableSlots');
+const isAdmin = require('../middleware/isAdmin');
 
 const router = express.Router({ mergeParams: true })
 
-router.post('/', requestCtrl.createRequest);
+router.post('/', isAvailableSlot, requestCtrl.createRequest);
 router.get('/', requestCtrl.getAllRequest);
-router.get('/requestId', isAuthorizedRoReq, requestCtrl.show);
+router.get('/requestId', isAuthorizedToReq, requestCtrl.show);
 router.put('/requestId', requestCtrl.updateRequest);
-router.delete('/requestId', isAuthorizedRoReq, requestCtrl.deleteRequest);
+router.post('/requestId/accept', isAdmin, isAvailableSlot, requestCtrl.acceptRequest);
+router.delete('/requestId/withdraw', isAuthorizedToReq, requestCtrl.withdrawRequest);
+
 
 module.exports = router;

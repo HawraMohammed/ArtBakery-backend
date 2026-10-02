@@ -48,7 +48,7 @@ const updatePost = async (req, res) => {
                 images: Array.isArray(req.body.images)
                     ? req.body.images
                     : [req.body.images]
-            });
+            }, { new: true });
 
         res.status(200).json(updatedPost)
     }

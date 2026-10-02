@@ -1,8 +1,8 @@
+const Order = require("../models/order");
 const Request = require("../models/request");
 
 const createRequest = async (req, res) => {
     try {
-        //check if the weekly orders are completed 
         const newRequest = await Request.create({ ...req.body, requestor: req.user._id });
         res.status(201).json(newRequest);
     }
@@ -59,19 +59,44 @@ const updateRequest = async (req, res) => {
     }
 }
 
-const deleteRequest = async (req, res) => {
+const acceptRequest = async (req, res) => {
     try {
-        if (req.params.action === "accept") {
-            //create order
 
-        }
-        else {
-            await Request.findByIdAndDelete(req.params.requestId);
+        if (req.user.role !== 'admin') {
+            return res.status(403).json("you are not authorized to manage the resource")
         }
 
+        const newOrder = await Order.create({
+            user: req.requestor,
+            title: req.title,
+            description: req.description,
+            category: req.category,
+            requestedDate: req.requestedDate
+        });
+
+        if (req.orderCount + 1 === 2) {
+            await Request.deleteMany({
+                requestedDate: {
+                    $gte: req.startOfWeek,
+                    $lt: req.endOfWeek
+                }
+            });
+        }
+        res.status(200).json(newOrder)
     }
     catch (err) {
         return res.status(500).json(err.message);
     }
 }
-module.exports = { createRequest, getAllRequest, show, updateRequest, deleteRequest }
+
+const withdrawRequest = async (req, res) => {
+    try {
+
+        await Request.findByIdAndDelete(req.params.requestId);
+        res.status(200)
+    }
+    catch (err) {
+        return res.status(500).json(err.message);
+    }
+}
+module.exports = { createRequest, getAllRequest, show, updateRequest, acceptRequest, withdrawRequest }
