@@ -1,0 +1,52 @@
+const Order = require("../models/order")
+
+const getAllOrders = async (req, res) => {
+    try {
+        const orders = await Order.find(req.user.role == 'admin' ?
+            { $or: [{ requestedDate: { $gt: new Date() } }, { paymentStatus: 'unpaid' }] }
+            : { user: req.user._id })
+            .populate('user')
+            .sort({ createdAt: 1, requestedDate: 1 })
+
+        res.status(200).json(orders);
+    }
+    catch (err) { res.status(500).json(err.message) }
+}
+
+const getSingleOrder = async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.orderId)
+            .populate('user')
+
+        res.status(200).json(order);
+    }
+    catch (err) { res.status(500).json(err.message) }
+}
+
+const deleteOrder = async (req, res) => {
+    try {
+        const order = await Order.findByIdAndDelete(req.params.orderId)
+
+        res.status(200).json(order);
+    }
+    catch (err) { res.status(500).json(err.message) }
+}
+
+const updatePaymentInfo = async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.orderId);
+
+        if (!order) {
+            return res.status(404).json("order not found")
+        }
+
+        order.price = req.body.price;
+        order.paymentStatus = req.body.paymentStatus;
+
+        await order.save()
+
+        res.status(200).json(order);
+    }
+    catch (err) { res.status(500).json(err.message) }
+}
+module.exports = { getAllOrders, getSingleOrder, deleteOrder, updatePaymentInfo }

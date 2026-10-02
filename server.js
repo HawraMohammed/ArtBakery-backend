@@ -15,6 +15,8 @@ const path = require('path');
 // Routers
 const authRouter = require('./routes/authRouter');
 const requestRouter = require('./routes/requestRouter');
+const orderRouter = require('./routes/orderRouter');
+
 
 
 app.use(cors());
@@ -31,6 +33,8 @@ app.use('/auth', authRouter);
 // PROTECTED
 app.use(isSignedIn);
 app.use('/requests', requestRouter);
+app.use('/orders', orderRouter);
+
 
 app.get('/protected', (req, res) => {
   try {

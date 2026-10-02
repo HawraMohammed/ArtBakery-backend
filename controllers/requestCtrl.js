@@ -46,13 +46,13 @@ const updateRequest = async (req, res) => {
         if (!request) {
             return res.status(404).json('request not found!!');
         }
-        if (request.requestor._id != req.user._id)
+        if (request.requestor._id !== req.user._id)
             return res.status(403).json('you are not authorized to update the request');
 
         const updatedRequest = await Request.findByIdAndUpdate(req.params.requestId, req.body, { new: true })
             .populate('requestor')
 
-        res.status(200).json(request)
+        res.status(200).json(updatedRequest)
     }
     catch (err) {
         return res.status(500).json(err.message);
@@ -61,7 +61,7 @@ const updateRequest = async (req, res) => {
 
 const deleteRequest = async (req, res) => {
     try {
-        if (req.params.action == "accept") {
+        if (req.params.action === "accept") {
             //create order
 
         }
