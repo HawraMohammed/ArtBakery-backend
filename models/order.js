@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
         defualt: 'unpaid'
     }
 }, {
-    timestamps: { createdAt: true, updatedAt: false }
+    timestamps: { createdAt: true }
 })
 
 
