@@ -11,4 +11,4 @@ const isAuthorizedToReq = async (req, res, next) => {
 
     next();
 }
-module.exports = { isAuthorizedToReq }
+module.exports = isAuthorizedToReq 

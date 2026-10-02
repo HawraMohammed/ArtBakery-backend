@@ -16,4 +16,4 @@ const isAuthorizedToOrder = async (req, res, next) => {
         return res.status(500).json(err.message);
     }
 }
-module.exports = { isAuthorizedToOrder }
+module.exports = isAuthorizedToOrder 

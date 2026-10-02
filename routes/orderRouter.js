@@ -1,7 +1,7 @@
 const express = require('express');
 const orderCtrl = require('../controllers/orderCtrl');
-const { isAuthorizedToOrder } = require('../middleware/isAuthorizedToOrder');
-const { isAdmin } = require('../middleware/isAdmin');
+const isAuthorizedToOrder = require('../middleware/isAuthorizedToOrder');
+const isAdmin = require('../middleware/isAdmin');
 
 const router = express.Router({ mergeParams: true })
 

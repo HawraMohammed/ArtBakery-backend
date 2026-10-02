@@ -133,7 +133,7 @@
     <td>delete the post(admin)</td>
   </tr>
    <tr>
-    <td rowspan="4">Comment</td>
+    <td rowspan="3">Comment</td>
     <td>POST</td>
     <td>/posts/:postId/comments</td>
     <td>Create a new comment of a post</td>
@@ -142,11 +142,6 @@
     <td>PUT</td>
     <td>/posts/:postId/comments/:commentId</td>
     <td>update the created comment info</td>
-  </tr>
-    <tr>
-    <td>GET</td>
-    <td>/posts/:postId/comments</td>
-    <td>view all created comments</td>
   </tr>
    <tr>
     <td>DELETE</td>

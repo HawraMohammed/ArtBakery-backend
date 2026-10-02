@@ -9,4 +9,4 @@ const isAdmin = async (req, res, next) => {
         return res.status(500).json(err.message)
     }
 }
-module.exports = { isAdmin }
+module.exports = isAdmin 
