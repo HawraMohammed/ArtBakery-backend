@@ -16,6 +16,8 @@ const path = require('path');
 const authRouter = require('./routes/authRouter');
 const requestRouter = require('./routes/requestRouter');
 const orderRouter = require('./routes/orderRouter');
+const postRouter = require('./routes/postRouter');
+
 
 
 
@@ -29,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // PUBLIC
 app.use('/auth', authRouter);
+app.use('/posts', postRouter);
 
 // PROTECTED
 app.use(isSignedIn);
