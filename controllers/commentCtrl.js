@@ -6,7 +6,7 @@ const createComment = async (req, res) => {
         if (!post) {
             return res.status(404).json("post is not found")
         }
-        post.comments.push({ ...req.body, owner: req.user._id });
+        post.comments.push({ ...req.body, owner: req.user._id, post: req.params.postId });
         await post.save();
         res.status(201).json(post.comments[post.comments.length - 1]);
     }

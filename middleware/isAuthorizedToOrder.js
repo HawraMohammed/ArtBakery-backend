@@ -7,7 +7,7 @@ const isAuthorizedToOrder = async (req, res, next) => {
         if (!order) {
             return res.status(404).json("order not found");
         }
-        if (order.user.toString() !== req.user._id.toString() || req.user.role !== 'admin') {
+        if (order.user.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
             return res.status(403).json("you are not authorized to view or modify this order");
         }
         next();

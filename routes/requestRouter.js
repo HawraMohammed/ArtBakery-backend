@@ -8,10 +8,10 @@ const router = express.Router({ mergeParams: true })
 
 router.post('/', isAvailableSlot, requestCtrl.createRequest);
 router.get('/', requestCtrl.getAllRequest);
-router.get('/requestId', isAuthorizedToReq, requestCtrl.show);
-router.put('/requestId', requestCtrl.updateRequest);
-router.post('/requestId/accept', isAdmin, isAvailableSlot, requestCtrl.acceptRequest);
-router.delete('/requestId/withdraw', isAuthorizedToReq, requestCtrl.withdrawRequest);
+router.get('/:requestId', isAuthorizedToReq, requestCtrl.show);
+router.put('/:requestId', requestCtrl.updateRequest);
+router.post('/:requestId/accept', isAdmin, isAvailableSlot, requestCtrl.acceptRequest);
+router.delete('/:requestId', isAuthorizedToReq, requestCtrl.withdrawRequest);
 
 
 module.exports = router;

@@ -9,7 +9,7 @@ const isAuthorizedToComment = async (req, res, next) => {
         }
         const comment = post.comments.id(req.params.commentId);
 
-        if (comment.user.toString() !== req.user._id.toString()) {
+        if (comment.owner._id.toString() !== req.user._id.toString()) {
             return res.status(403).json("you are not authorized to view or modify this comment");
         }
         next();

@@ -27,11 +27,7 @@ const show = async (req, res) => {
         const request = await Request.findById(req.params.requestId)
             .populate('requestor');
 
-        if (!request) {
-            return res.status(404).json('request not found!!');
-        }
-
-        res.status(200).json(request)
+        res.status(200).json(request);
     }
     catch (err) {
         return res.status(500).json(err.message);
@@ -46,7 +42,7 @@ const updateRequest = async (req, res) => {
         if (!request) {
             return res.status(404).json('request not found!!');
         }
-        if (request.requestor._id !== req.user._id)
+        if (request.requestor._id.toString() !== req.user._id.toString())
             return res.status(403).json('you are not authorized to update the request');
 
         const updatedRequest = await Request.findByIdAndUpdate(req.params.requestId, req.body, { new: true })
@@ -65,13 +61,14 @@ const acceptRequest = async (req, res) => {
         if (req.user.role !== 'admin') {
             return res.status(403).json("you are not authorized to manage the resource")
         }
+        const requestor = (await Request.findById(req.params.requestId)).requestor;
 
         const newOrder = await Order.create({
-            user: req.requestor,
-            title: req.title,
-            description: req.description,
-            category: req.category,
-            requestedDate: req.requestedDate
+            user: requestor,
+            title: req.body.title,
+            description: req.body.description,
+            category: req.body.category,
+            requestedDate: req.body.requestedDate
         });
 
         await Request.deleteMany({
@@ -79,7 +76,7 @@ const acceptRequest = async (req, res) => {
                 $gte: req.startOfWeek,
                 $lt: req.endOfWeek
             },
-            requestor: req.body.user._id
+            requestor: requestor
         });
 
         if (req.orderCount + 1 === 2) {
@@ -100,8 +97,8 @@ const acceptRequest = async (req, res) => {
 const withdrawRequest = async (req, res) => {
     try {
 
-        await Request.findByIdAndDelete(req.params.requestId);
-        res.status(200)
+        const deletedReq = await Request.findByIdAndDelete(req.params.requestId);
+        res.status(200).json(deletedReq);
     }
     catch (err) {
         return res.status(500).json(err.message);

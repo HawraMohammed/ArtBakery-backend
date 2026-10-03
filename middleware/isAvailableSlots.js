@@ -1,4 +1,5 @@
 const Order = require("../models/order");
+const Request = require("../models/request");
 const getWeekRange = require("../utils/weekRange");
 
 const isAvailableSlot = async (req, res, next) => {
@@ -21,7 +22,7 @@ const isAvailableSlot = async (req, res, next) => {
                 $gte: startOfWeek,
                 $lt: endOfWeek
             },
-            user: req.body.user._id
+            user: req.user.role === 'admin' ? (await Request.findById(req.params.requestId)).requestor : req.user._id
         });
 
         if (orderOfRequestor > 0) {

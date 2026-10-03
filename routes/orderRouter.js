@@ -6,8 +6,8 @@ const isAdmin = require('../middleware/isAdmin');
 const router = express.Router({ mergeParams: true })
 
 router.get('/', orderCtrl.getAllOrders);
-router.get('/orderId', isAuthorizedToOrder, orderCtrl.getSingleOrder);
-router.delete('/orderId', isAuthorizedToOrder, orderCtrl.deleteOrder);
-router.patch('/orderId', isAdmin, orderCtrl.updatePaymentInfo);
+router.get('/:orderId', isAuthorizedToOrder, orderCtrl.getSingleOrder);
+router.delete('/:orderId', isAuthorizedToOrder, orderCtrl.deleteOrder);
+router.patch('/:orderId', isAdmin, orderCtrl.updatePaymentInfo);
 
 module.exports = router;

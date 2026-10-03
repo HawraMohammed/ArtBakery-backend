@@ -25,7 +25,7 @@ const orderSchema = new mongoose.Schema({
         type: String,
         enum: ['unpaid', 'paid'],
         required: true,
-        defualt: 'unpaid'
+        default: 'unpaid'
     }
 }, {
     timestamps: { createdAt: true }

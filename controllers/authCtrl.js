@@ -55,7 +55,7 @@ const login = async (req, res) => {
     const payload = {
       username: userInDatabase.username,
       _id: userInDatabase._id,
-      role: user.role
+      role: userInDatabase.role
     };
 
     const token = jwt.sign(payload, process.env.JWT_SECRET);
