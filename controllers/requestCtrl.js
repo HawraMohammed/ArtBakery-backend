@@ -74,6 +74,14 @@ const acceptRequest = async (req, res) => {
             requestedDate: req.requestedDate
         });
 
+        await Request.deleteMany({
+            requestedDate: {
+                $gte: req.startOfWeek,
+                $lt: req.endOfWeek
+            },
+            requestor: req.body.user._id
+        });
+
         if (req.orderCount + 1 === 2) {
             await Request.deleteMany({
                 requestedDate: {
