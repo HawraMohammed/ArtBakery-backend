@@ -9,5 +9,7 @@ router.get('/', orderCtrl.getAllOrders);
 router.get('/:orderId', isAuthorizedToOrder, orderCtrl.getSingleOrder);
 router.delete('/:orderId', isAuthorizedToOrder, orderCtrl.deleteOrder);
 router.patch('/:orderId', isAdmin, orderCtrl.updatePaymentInfo);
+router.patch('/:orderId/address', orderCtrl.addressInfo);
+
 
 module.exports = router;

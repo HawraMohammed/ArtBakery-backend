@@ -19,6 +19,20 @@ const orderSchema = new mongoose.Schema({
         enum: ['Birthday', 'Baby', 'Graduation', 'Weddiing', 'Gift', 'Corporate', 'Religious', 'Seasonal', 'Other']
         , required: true
     },
+    address: {
+        building: {
+            type: String
+        },
+        block: {
+            type: String
+        },
+        road: {
+            type: String
+        },
+        road: {
+            type: String
+        }
+    },
     requestedDate: { type: Date, required: true },
     price: { type: Number },
     paymentStatus: {

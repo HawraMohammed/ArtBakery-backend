@@ -49,4 +49,22 @@ const updatePaymentInfo = async (req, res) => {
     }
     catch (err) { res.status(500).json(err.message) }
 }
-module.exports = { getAllOrders, getSingleOrder, deleteOrder, updatePaymentInfo }
+const addressInfo = async (req, res) => {
+    try {
+        const order = await Order.findById(req.params.orderId);
+
+        if (!order) {
+            return res.status(404).json("order not found")
+        }
+        if (order.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json("you are not authorized to view or modify this order");
+        }
+        order.address = req.body.address;
+
+        await order.save()
+
+        res.status(200).json(order);
+    }
+    catch (err) { res.status(500).json(err.message) }
+}
+module.exports = { getAllOrders, getSingleOrder, deleteOrder, updatePaymentInfo, addressInfo }
