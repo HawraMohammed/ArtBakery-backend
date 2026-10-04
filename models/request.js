@@ -16,7 +16,7 @@ const requestSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Birthday', 'Baby', 'Graduation', 'Weddiing', 'Gift', 'Corporate', 'Religious', 'Other']
+        enum: ['Birthday', 'Baby', 'Graduation', 'Wedding', 'Gift', 'Corporate', 'Religious', 'Other']
         , required: true
     },
     requestedDate: { type: Date, required: true }
