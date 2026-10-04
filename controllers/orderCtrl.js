@@ -2,9 +2,35 @@ const Order = require("../models/order")
 
 const getAllOrders = async (req, res) => {
     try {
-        const orders = await Order.find(req.user.role == 'admin' ?
-            { $or: [{ requestedDate: { $gt: new Date() } }, { paymentStatus: 'unpaid' }] }
-            : { user: req.user._id })
+        let query;
+
+        if (req.query.calendar) {
+            const { startDate, endDate } = req.query;
+
+            query = {
+                requestedDate: {
+                    $gte: new Date(startDate),
+                    $lt: new Date(endDate)
+                }
+            };
+        }
+
+        else if (req.user.role === "admin") {
+            query = {
+                $or: [
+                    { requestedDate: { $gt: new Date() } },
+                    { paymentStatus: "unpaid" }
+                ]
+            };
+        }
+
+        else {
+            query = {
+                user: req.user._id
+            };
+        }
+
+        const orders = await Order.find(query)
             .populate('user')
             .sort({ createdAt: 1, requestedDate: 1 })
 
