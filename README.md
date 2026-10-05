@@ -90,7 +90,7 @@
     <td>reject request (admin) withdraw the created request info(customer)</td>
   </tr>
   <tr>
-    <td rowspan="5">Order</td>
+    <td rowspan="6">Order</td>
     <td>PATCH</td>
     <td>/orders/:orderId</td>
     <td>update the order's price and payment status(admin) *price is determined after negotiation*</td>

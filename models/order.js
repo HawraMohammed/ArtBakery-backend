@@ -29,7 +29,7 @@ const orderSchema = new mongoose.Schema({
         road: {
             type: String
         },
-        road: {
+        area: {
             type: String
         }
     },

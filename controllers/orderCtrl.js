@@ -70,6 +70,7 @@ const updatePaymentInfo = async (req, res) => {
         order.paymentStatus = req.body.paymentStatus;
 
         await order.save()
+        await order.populate('user')
 
         res.status(200).json(order);
     }
@@ -88,6 +89,7 @@ const addressInfo = async (req, res) => {
         order.address = req.body.address;
 
         await order.save()
+        await order.populate('user')
 
         res.status(200).json(order);
     }
