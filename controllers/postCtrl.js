@@ -1,4 +1,5 @@
 const Post = require("../models/post")
+const { cloudinary, uploadToCloudinary } = require('../config/cloudinary ')
 
 const getAllPosts = async (req, res) => {
     try {
@@ -23,11 +24,22 @@ const getSinglePost = async (req, res) => {
 }
 const createPost = async (req, res) => {
     try {
+
+        const images = [];
+
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                const result = await uploadToCloudinary(file);
+
+                images.push({
+                    url: result.secure_url,
+                    public_id: result.public_id
+                });
+            }
+        }
         const newPost = await Post.create({
             ...req.body,
-            images: Array.isArray(req.body.images)
-                ? req.body.images
-                : [req.body.images]
+            images: images
         });
 
         res.status(201).json(newPost)
@@ -42,13 +54,35 @@ const updatePost = async (req, res) => {
         if (!post) {
             return res.status(404).json("post is not found")
         }
-        const updatedPost = await Post.findByIdAndUpdate(req.params.postId
-            , {
-                ...req.body,
-                images: Array.isArray(req.body.images)
-                    ? req.body.images
-                    : [req.body.images]
-            }, { new: true });
+
+        if (req.body.deletePictures) {
+            let deletePictures = req.body.deletePictures;
+            if (!Array.isArray(deletePictures)) {
+                deletePictures = [deletePictures];
+            }
+            for (const publicId of deletePictures) {
+                await cloudinary.uploader.destroy(publicId);
+                post.images = post.images.filter(
+                    picture => picture.public_id !== publicId
+                );
+            }
+
+        }
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+
+                const result = await uploadToCloudinary(file);
+
+                post.images.push({
+                    url: result.secure_url,
+                    public_id: result.public_id
+                });
+            }
+        }
+        await post.save();
+        const updatedPost = await Post.findByIdAndUpdate(req.params.postId,
+            req.body
+            , { new: true });
 
         res.status(200).json(updatedPost)
     }

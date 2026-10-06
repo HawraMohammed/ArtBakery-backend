@@ -22,10 +22,20 @@ const postSchema = new mongoose.Schema({
     content: { type: String, required: true },
     category: {
         type: String,
-        enum: ['Birthday', 'Baby', 'Graduation', 'Weddiing', 'Gift', 'Corporate', 'Religious', 'Other']
+        enum: ['Birthday', 'Baby', 'Graduation', 'Wedding', 'Gift', 'Corporate', 'Religious', 'Other']
         , required: true
     },
-    images: [String],
+    images: [{
+        url: {
+            type: String,
+            required: true
+        },
+        public_id: {
+            type: String,
+            required: true
+        }
+    }
+    ],
     comments: [commentSchema]
 }, { timestamps: { createdAt: true } })
 
