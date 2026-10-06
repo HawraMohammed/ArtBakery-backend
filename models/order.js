@@ -40,7 +40,14 @@ const orderSchema = new mongoose.Schema({
         enum: ['unpaid', 'paid'],
         required: true,
         default: 'unpaid'
-    }
+    },
+    paymentId: {
+        type: String
+    },
+
+    paymentDate: {
+        type: Date
+    },
 }, {
     timestamps: { createdAt: true }
 })
