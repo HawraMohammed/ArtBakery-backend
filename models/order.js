@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['Birthday', 'Baby', 'Graduation', 'Weddiing', 'Gift', 'Corporate', 'Religious', 'Seasonal', 'Other']
+        enum: ['Birthday', 'Baby', 'Graduation', 'Wedding', 'Gift', 'Corporate', 'Religious', 'Seasonal', 'Other']
         , required: true
     },
     address: {
