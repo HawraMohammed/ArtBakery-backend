@@ -96,6 +96,11 @@ const deletePost = async (req, res) => {
         if (!post) {
             return res.status(404).json("post is not found")
         }
+        if (post.images.length > 0) {
+            for (const image of post.images) {
+                await cloudinary.uploader.destroy(image.public_id);
+            }
+        }
         const deletedPost = await Post.findByIdAndDelete(req.params.postId);
 
         res.status(200).json(deletedPost)
