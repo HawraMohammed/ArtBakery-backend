@@ -124,7 +124,7 @@ const tapPayment = async (req, res) => {
                 },
 
                 redirect: {
-                    url: `http://localhost:5173/orders?orderId=${order._id}`
+                    url: `${process.env.FRONTEND_URL}/orders?orderId=${order._id}`
                 },
 
                 description: `ArtBakery Order ${order._id}`
@@ -148,9 +148,6 @@ const tapPayment = async (req, res) => {
 
     }
     catch (err) {
-        console.log("STATUS:", err.response?.status);
-        console.log("DATA:", err.response?.data);
-        console.log("MESSAGE:", err.message);
         res.status(500).json(err.message)
     }
 }
